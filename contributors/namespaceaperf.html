@@ -152,8 +152,8 @@ Functions</h2></td></tr>
 <tr class="separator:ad685154c423e8eddd1a59a058b0bdd2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a84d640fc7171a53900d108766b5de171" id="r_a84d640fc7171a53900d108766b5de171"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classaperf_1_1CPUConfig.html">CPUConfig</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceaperf.html#a84d640fc7171a53900d108766b5de171">get_cpu_config</a> (int post_processing_threads, bool external_server)</td></tr>
 <tr class="separator:a84d640fc7171a53900d108766b5de171"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48f301ea0ca806aa4ae81fbc0fa97038" id="r_a48f301ea0ca806aa4ae81fbc0fa97038"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceaperf.html#a48f301ea0ca806aa4ae81fbc0fa97038">start_profiling_session</a> (std::vector&lt; std::unique_ptr&lt; <a class="el" href="classaperf_1_1Profiler.html">Profiler</a> &gt; &gt; &amp;profilers, std::string command, std::string server_address, unsigned int buf_size, unsigned int warmup, <a class="el" href="classaperf_1_1CPUConfig.html">CPUConfig</a> &amp;cpu_config, fs::path tmp_dir, std::vector&lt; pid_t &gt; &amp;spawned_children)</td></tr>
-<tr class="separator:a48f301ea0ca806aa4ae81fbc0fa97038"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cb7a8eeda739b0d837c5d727cb80d9a" id="r_a8cb7a8eeda739b0d837c5d727cb80d9a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceaperf.html#a8cb7a8eeda739b0d837c5d727cb80d9a">start_profiling_session</a> (std::vector&lt; std::unique_ptr&lt; <a class="el" href="classaperf_1_1Profiler.html">Profiler</a> &gt; &gt; &amp;profilers, std::vector&lt; std::string &gt; &amp;command_elements, std::string server_address, unsigned int buf_size, unsigned int warmup, <a class="el" href="classaperf_1_1CPUConfig.html">CPUConfig</a> &amp;cpu_config, fs::path tmp_dir, std::vector&lt; pid_t &gt; &amp;spawned_children)</td></tr>
+<tr class="separator:a8cb7a8eeda739b0d837c5d727cb80d9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c98b8c522e117b1f16ddc75e0098152" id="r_a4c98b8c522e117b1f16ddc75e0098152"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceaperf.html#a4c98b8c522e117b1f16ddc75e0098152">server_entrypoint</a> (int argc, char **argv)</td></tr>
 <tr class="separator:a4c98b8c522e117b1f16ddc75e0098152"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -325,8 +325,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a48f301ea0ca806aa4ae81fbc0fa97038" name="a48f301ea0ca806aa4ae81fbc0fa97038"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a48f301ea0ca806aa4ae81fbc0fa97038">&#9670;&#160;</a></span>start_profiling_session()</h2>
+<a id="a8cb7a8eeda739b0d837c5d727cb80d9a" name="a8cb7a8eeda739b0d837c5d727cb80d9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cb7a8eeda739b0d837c5d727cb80d9a">&#9670;&#160;</a></span>start_profiling_session()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -340,8 +340,8 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>command</em>, </td>
+          <td class="paramtype">std::vector&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>command_elements</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -390,7 +390,7 @@ Variables</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">profilers</td><td>A list of profilers used to profile the command. </td></tr>
-    <tr><td class="paramname">command</td><td>A command to be profiled. </td></tr>
+    <tr><td class="paramname">command_elements</td><td>A command to be profiled, in form of a vector of string parts (e.g. "adaptiveperf -f 100 test" becomes ["adaptiveperf", "-f", "100", "test"]). </td></tr>
     <tr><td class="paramname">server_address</td><td>The address and port of an external instance of adaptiveperf-server. If the external instance usage is not planned, server_address should be an empty string. </td></tr>
     <tr><td class="paramname">buf_size</td><td>A size of buffer for communication with adaptiveperf-server, in bytes. </td></tr>
     <tr><td class="paramname">warmup</td><td>A number of seconds between the profilers indicating their readiness and the actual execution of the command. This may have to be high on machines with weaker configurations. </td></tr>
