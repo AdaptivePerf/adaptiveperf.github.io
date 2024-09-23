@@ -6,7 +6,7 @@ var searchData=
   ['serverconninstrs_3',['serverconninstrs',['../classaperf_1_1ServerConnInstrs.html',1,'aperf::ServerConnInstrs'],['../classaperf_1_1ServerConnInstrs.html#a591810fad68fece7f915361dec837a4f',1,'aperf::ServerConnInstrs::ServerConnInstrs()']]],
   ['socket_4',['Socket',['../classaperf_1_1Socket.html',1,'aperf']]],
   ['start_5',['start',['../classaperf_1_1Perf.html#a3d2c143162c30996ebd7209712784ad6',1,'aperf::Perf::start()'],['../classaperf_1_1Profiler.html#a2ce6d23aa7356eae84e126baf7df819f',1,'aperf::Profiler::start()']]],
-  ['start_5fprofiling_5fsession_6',['start_profiling_session',['../namespaceaperf.html#a8cb7a8eeda739b0d837c5d727cb80d9a',1,'aperf']]],
+  ['start_5fprofiling_5fsession_6',['start_profiling_session',['../namespaceaperf.html#a5859a8d7652ad222620dfb2749ff70b2',1,'aperf']]],
   ['stdclient_7',['StdClient',['../classaperf_1_1StdClient.html',1,'aperf']]],
   ['stdsubclient_8',['StdSubclient',['../classaperf_1_1StdSubclient.html',1,'aperf']]],
   ['subclient_9',['Subclient',['../classaperf_1_1Subclient.html',1,'aperf']]],
