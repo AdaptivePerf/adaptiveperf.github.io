@@ -105,289 +105,292 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;Poco/Net/ServerSocket.h&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#define UNLIMITED_ACCEPTED -1</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#define NO_TIMEOUT -1</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#ifndef FILE_BUFFER_SIZE</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#define FILE_BUFFER_SIZE 1048576</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceaperf.html">aperf</a> {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  <span class="keyword">namespace </span>net = Poco::Net;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  <span class="keyword">namespace </span>fs = std::filesystem;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="foldopen" id="foldopen00031" data-start="{" data-end="};">
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classaperf_1_1ConnectionException.html">   31</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1ConnectionException.html">ConnectionException</a> : <span class="keyword">public</span> std::exception {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_class" href="classaperf_1_1ConnectionException.html">ConnectionException</a>() {}</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_class" href="classaperf_1_1ConnectionException.html">ConnectionException</a>(std::exception &amp;other) : std::exception(other) { }</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  };</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;boost/predef.h&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#define UNLIMITED_ACCEPTED -1</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#define NO_TIMEOUT -1</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#ifndef FILE_BUFFER_SIZE</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#define FILE_BUFFER_SIZE 1048576</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceaperf.html">aperf</a> {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  <span class="keyword">namespace </span>net = Poco::Net;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  <span class="keyword">namespace </span>fs = std::filesystem;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="foldopen" id="foldopen00032" data-start="{" data-end="};">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="classaperf_1_1ConnectionException.html">   32</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1ConnectionException.html">ConnectionException</a> : <span class="keyword">public</span> std::exception {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_class" href="classaperf_1_1ConnectionException.html">ConnectionException</a>() {}</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_class" href="classaperf_1_1ConnectionException.html">ConnectionException</a>(std::exception &amp;other) : std::exception(other) { }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  };</div>
 </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="foldopen" id="foldopen00041" data-start="{" data-end="};">
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="classaperf_1_1AlreadyInUseException.html">   41</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1AlreadyInUseException.html">AlreadyInUseException</a> : <span class="keyword">public</span> <a class="code hl_class" href="classaperf_1_1ConnectionException.html">ConnectionException</a> {</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  };</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="foldopen" id="foldopen00042" data-start="{" data-end="};">
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="classaperf_1_1AlreadyInUseException.html">   42</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1AlreadyInUseException.html">AlreadyInUseException</a> : <span class="keyword">public</span> <a class="code hl_class" href="classaperf_1_1ConnectionException.html">ConnectionException</a> {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  };</div>
 </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="foldopen" id="foldopen00048" data-start="{" data-end="};">
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="classaperf_1_1TimeoutException.html">   48</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1TimeoutException.html">TimeoutException</a> : <span class="keyword">public</span> std::exception {</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  };</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="foldopen" id="foldopen00049" data-start="{" data-end="};">
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="classaperf_1_1TimeoutException.html">   49</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1TimeoutException.html">TimeoutException</a> : <span class="keyword">public</span> std::exception {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  };</div>
 </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="foldopen" id="foldopen00055" data-start="{" data-end="};">
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="classaperf_1_1Connection.html">   55</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1Connection.html">Connection</a> {</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="classaperf_1_1Connection.html#a771ddae16f4b86e2ee48b095bb2486aa">   60</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1Connection.html#a771ddae16f4b86e2ee48b095bb2486aa">close</a>() = 0;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classaperf_1_1Connection.html">~Connection</a>() { }</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="classaperf_1_1Connection.html#ab413bcd2d98f4782300009937701a9a6">   77</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classaperf_1_1Connection.html#ab413bcd2d98f4782300009937701a9a6">read</a>(<span class="keywordtype">char</span> *buf, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> len, <span class="keywordtype">long</span> timeout_seconds) = 0;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="classaperf_1_1Connection.html#a4f6c4fd7275d36a8eb54b33c32200236">   89</a></span>    <span class="keyword">virtual</span> std::string <a class="code hl_function" href="classaperf_1_1Connection.html#a4f6c4fd7275d36a8eb54b33c32200236">read</a>(<span class="keywordtype">long</span> timeout_seconds = NO_TIMEOUT) = 0;</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="classaperf_1_1Connection.html#ab0b034ab29df38f19a713cb8d6bb7b5a">  100</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1Connection.html#ab0b034ab29df38f19a713cb8d6bb7b5a">write</a>(std::string msg, <span class="keywordtype">bool</span> new_line = <span class="keyword">true</span>) = 0;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="classaperf_1_1Connection.html#ae2f970a26ff6bd1cd17c4625f3458242">  109</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1Connection.html#ae2f970a26ff6bd1cd17c4625f3458242">write</a>(fs::path file) = 0;</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="classaperf_1_1Connection.html#a91eef93121fe738f970d6a246439b53b">  119</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1Connection.html#a91eef93121fe738f970d6a246439b53b">write</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> len, <span class="keywordtype">char</span> *buf) = 0;</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="classaperf_1_1Connection.html#a7700aa12b6b27d45c7bc9ccfe9544476">  124</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classaperf_1_1Connection.html#a7700aa12b6b27d45c7bc9ccfe9544476">get_buf_size</a>() = 0;</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>  };</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="foldopen" id="foldopen00056" data-start="{" data-end="};">
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="classaperf_1_1Connection.html">   56</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1Connection.html">Connection</a> {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="classaperf_1_1Connection.html#a771ddae16f4b86e2ee48b095bb2486aa">   61</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1Connection.html#a771ddae16f4b86e2ee48b095bb2486aa">close</a>() = 0;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classaperf_1_1Connection.html">~Connection</a>() { }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="classaperf_1_1Connection.html#ab413bcd2d98f4782300009937701a9a6">   78</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classaperf_1_1Connection.html#ab413bcd2d98f4782300009937701a9a6">read</a>(<span class="keywordtype">char</span> *buf, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> len, <span class="keywordtype">long</span> timeout_seconds) = 0;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="classaperf_1_1Connection.html#a4f6c4fd7275d36a8eb54b33c32200236">   90</a></span>    <span class="keyword">virtual</span> std::string <a class="code hl_function" href="classaperf_1_1Connection.html#a4f6c4fd7275d36a8eb54b33c32200236">read</a>(<span class="keywordtype">long</span> timeout_seconds = NO_TIMEOUT) = 0;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="classaperf_1_1Connection.html#ab0b034ab29df38f19a713cb8d6bb7b5a">  101</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1Connection.html#ab0b034ab29df38f19a713cb8d6bb7b5a">write</a>(std::string msg, <span class="keywordtype">bool</span> new_line = <span class="keyword">true</span>) = 0;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="classaperf_1_1Connection.html#ae2f970a26ff6bd1cd17c4625f3458242">  110</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1Connection.html#ae2f970a26ff6bd1cd17c4625f3458242">write</a>(fs::path file) = 0;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="classaperf_1_1Connection.html#a91eef93121fe738f970d6a246439b53b">  120</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1Connection.html#a91eef93121fe738f970d6a246439b53b">write</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> len, <span class="keywordtype">char</span> *buf) = 0;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="classaperf_1_1Connection.html#a7700aa12b6b27d45c7bc9ccfe9544476">  125</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classaperf_1_1Connection.html#a7700aa12b6b27d45c7bc9ccfe9544476">get_buf_size</a>() = 0;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>  };</div>
 </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
-<div class="foldopen" id="foldopen00130" data-start="{" data-end="};">
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno"><a class="line" href="classaperf_1_1Socket.html">  130</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1Socket.html">Socket</a> : <span class="keyword">public</span> <a class="code hl_class" href="classaperf_1_1Connection.html">Connection</a> {</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>  <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="classaperf_1_1Socket.html#a7defb4f0467948902cfeb6aa3e5cc477">  132</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1Socket.html#a7defb4f0467948902cfeb6aa3e5cc477">close</a>() = 0;</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classaperf_1_1Socket.html">~Socket</a>() { }</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="classaperf_1_1Socket.html#a30a2d363ce69eba219a4f32a30d584ec">  140</a></span>    <span class="keyword">virtual</span> std::string <a class="code hl_function" href="classaperf_1_1Socket.html#a30a2d363ce69eba219a4f32a30d584ec">get_address</a>() = 0;</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno"><a class="line" href="classaperf_1_1Socket.html#ab7b39b18f21c92b57f0d77f8704eaf52">  145</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code hl_function" href="classaperf_1_1Socket.html#ab7b39b18f21c92b57f0d77f8704eaf52">get_port</a>() = 0;</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="classaperf_1_1Socket.html#a8db403dbf75c1e173d78666c7801d7ed">  147</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classaperf_1_1Socket.html#a8db403dbf75c1e173d78666c7801d7ed">get_buf_size</a>() = 0;</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno"><a class="line" href="classaperf_1_1Socket.html#a426edc95ed97dd7b6dae4ae3ca39a9f3">  148</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classaperf_1_1Socket.html#a426edc95ed97dd7b6dae4ae3ca39a9f3">read</a>(<span class="keywordtype">char</span> *buf, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> len, <span class="keywordtype">long</span> timeout_seconds) = 0;</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno"><a class="line" href="classaperf_1_1Socket.html#a2e6c4dc08617ca134dd40023d687c702">  149</a></span>    <span class="keyword">virtual</span> std::string <a class="code hl_function" href="classaperf_1_1Socket.html#a2e6c4dc08617ca134dd40023d687c702">read</a>(<span class="keywordtype">long</span> timeout_seconds = NO_TIMEOUT) = 0;</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno"><a class="line" href="classaperf_1_1Socket.html#a55c9a6c367ab08de8c38995c55a96293">  150</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1Socket.html#a55c9a6c367ab08de8c38995c55a96293">write</a>(std::string msg, <span class="keywordtype">bool</span> new_line = <span class="keyword">true</span>) = 0;</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno"><a class="line" href="classaperf_1_1Socket.html#a345906512a9a1275463039ef51eea228">  151</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1Socket.html#a345906512a9a1275463039ef51eea228">write</a>(fs::path file) = 0;</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="classaperf_1_1Socket.html#a91ab978e17bf4a87ac6acf48c01929dd">  152</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1Socket.html#a91ab978e17bf4a87ac6acf48c01929dd">write</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> len, <span class="keywordtype">char</span> *buf) = 0;</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>  };</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="foldopen" id="foldopen00131" data-start="{" data-end="};">
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="classaperf_1_1Socket.html">  131</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1Socket.html">Socket</a> : <span class="keyword">public</span> <a class="code hl_class" href="classaperf_1_1Connection.html">Connection</a> {</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>  <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="classaperf_1_1Socket.html#a7defb4f0467948902cfeb6aa3e5cc477">  133</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1Socket.html#a7defb4f0467948902cfeb6aa3e5cc477">close</a>() = 0;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>  <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classaperf_1_1Socket.html">~Socket</a>() { }</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno"><a class="line" href="classaperf_1_1Socket.html#a30a2d363ce69eba219a4f32a30d584ec">  141</a></span>    <span class="keyword">virtual</span> std::string <a class="code hl_function" href="classaperf_1_1Socket.html#a30a2d363ce69eba219a4f32a30d584ec">get_address</a>() = 0;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno"><a class="line" href="classaperf_1_1Socket.html#ab7b39b18f21c92b57f0d77f8704eaf52">  146</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code hl_function" href="classaperf_1_1Socket.html#ab7b39b18f21c92b57f0d77f8704eaf52">get_port</a>() = 0;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno"><a class="line" href="classaperf_1_1Socket.html#a8db403dbf75c1e173d78666c7801d7ed">  148</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classaperf_1_1Socket.html#a8db403dbf75c1e173d78666c7801d7ed">get_buf_size</a>() = 0;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno"><a class="line" href="classaperf_1_1Socket.html#a426edc95ed97dd7b6dae4ae3ca39a9f3">  149</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classaperf_1_1Socket.html#a426edc95ed97dd7b6dae4ae3ca39a9f3">read</a>(<span class="keywordtype">char</span> *buf, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> len, <span class="keywordtype">long</span> timeout_seconds) = 0;</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno"><a class="line" href="classaperf_1_1Socket.html#a2e6c4dc08617ca134dd40023d687c702">  150</a></span>    <span class="keyword">virtual</span> std::string <a class="code hl_function" href="classaperf_1_1Socket.html#a2e6c4dc08617ca134dd40023d687c702">read</a>(<span class="keywordtype">long</span> timeout_seconds = NO_TIMEOUT) = 0;</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno"><a class="line" href="classaperf_1_1Socket.html#a55c9a6c367ab08de8c38995c55a96293">  151</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1Socket.html#a55c9a6c367ab08de8c38995c55a96293">write</a>(std::string msg, <span class="keywordtype">bool</span> new_line = <span class="keyword">true</span>) = 0;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="classaperf_1_1Socket.html#a345906512a9a1275463039ef51eea228">  152</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1Socket.html#a345906512a9a1275463039ef51eea228">write</a>(fs::path file) = 0;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="classaperf_1_1Socket.html#a91ab978e17bf4a87ac6acf48c01929dd">  153</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1Socket.html#a91ab978e17bf4a87ac6acf48c01929dd">write</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> len, <span class="keywordtype">char</span> *buf) = 0;</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>  };</div>
 </div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
-<div class="foldopen" id="foldopen00158" data-start="{" data-end="};">
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="classaperf_1_1Acceptor.html">  158</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1Acceptor.html">Acceptor</a> {</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>  <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <span class="keywordtype">int</span> max_accepted;</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keywordtype">int</span> accepted;</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>  <span class="keyword">protected</span>:</div>
-<div class="foldopen" id="foldopen00171" data-start="{" data-end="}">
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno"><a class="line" href="classaperf_1_1Acceptor.html#a8ffe662d59ab2cb3bae83e89f078731c">  171</a></span>    <a class="code hl_function" href="classaperf_1_1Acceptor.html#a8ffe662d59ab2cb3bae83e89f078731c">Acceptor</a>(<span class="keywordtype">int</span> max_accepted) {</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>      this-&gt;max_accepted = max_accepted;</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>      this-&gt;accepted = 0;</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    }</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="foldopen" id="foldopen00159" data-start="{" data-end="};">
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="classaperf_1_1Acceptor.html">  159</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1Acceptor.html">Acceptor</a> {</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>  <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keywordtype">int</span> max_accepted;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keywordtype">int</span> accepted;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>  <span class="keyword">protected</span>:</div>
+<div class="foldopen" id="foldopen00172" data-start="{" data-end="}">
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="classaperf_1_1Acceptor.html#a8ffe662d59ab2cb3bae83e89f078731c">  172</a></span>    <a class="code hl_function" href="classaperf_1_1Acceptor.html#a8ffe662d59ab2cb3bae83e89f078731c">Acceptor</a>(<span class="keywordtype">int</span> max_accepted) {</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>      this-&gt;max_accepted = max_accepted;</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>      this-&gt;accepted = 0;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    }</div>
 </div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno"><a class="line" href="classaperf_1_1Acceptor.html#ae546a6bac40d4e50a4cdde0d513224eb">  182</a></span>    <span class="keyword">virtual</span> std::unique_ptr&lt;Connection&gt; <a class="code hl_function" href="classaperf_1_1Acceptor.html#ae546a6bac40d4e50a4cdde0d513224eb">accept_connection</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buf_size) = 0;</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="classaperf_1_1Acceptor.html#a4edcc149f1b75050739a56e07f099b7b">  187</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1Acceptor.html#a4edcc149f1b75050739a56e07f099b7b">close</a>() = 0;</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>  <span class="keyword">public</span>:</div>
-<div class="foldopen" id="foldopen00193" data-start="{" data-end="};">
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno"><a class="line" href="classaperf_1_1Acceptor_1_1Factory.html">  193</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1Acceptor_1_1Factory.html">Factory</a> {</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno"><a class="line" href="classaperf_1_1Acceptor_1_1Factory.html#acb01c1396fe6f17783fde36374bdef25">  202</a></span>      <span class="keyword">virtual</span> std::unique_ptr&lt;Acceptor&gt; <a class="code hl_function" href="classaperf_1_1Acceptor_1_1Factory.html#acb01c1396fe6f17783fde36374bdef25">make_acceptor</a>(<span class="keywordtype">int</span> max_accepted) = 0;</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno"><a class="line" href="classaperf_1_1Acceptor_1_1Factory.html#a24b328613650e6e12684183a1829b545">  208</a></span>      <span class="keyword">virtual</span> std::string <a class="code hl_function" href="classaperf_1_1Acceptor_1_1Factory.html#a24b328613650e6e12684183a1829b545">get_type</a>() = 0;</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    };</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="classaperf_1_1Acceptor.html#ae546a6bac40d4e50a4cdde0d513224eb">  183</a></span>    <span class="keyword">virtual</span> std::unique_ptr&lt;Connection&gt; <a class="code hl_function" href="classaperf_1_1Acceptor.html#ae546a6bac40d4e50a4cdde0d513224eb">accept_connection</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buf_size) = 0;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno"><a class="line" href="classaperf_1_1Acceptor.html#a4edcc149f1b75050739a56e07f099b7b">  188</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1Acceptor.html#a4edcc149f1b75050739a56e07f099b7b">close</a>() = 0;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>  <span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00194" data-start="{" data-end="};">
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="classaperf_1_1Acceptor_1_1Factory.html">  194</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1Acceptor_1_1Factory.html">Factory</a> {</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno"><a class="line" href="classaperf_1_1Acceptor_1_1Factory.html#acb01c1396fe6f17783fde36374bdef25">  203</a></span>      <span class="keyword">virtual</span> std::unique_ptr&lt;Acceptor&gt; <a class="code hl_function" href="classaperf_1_1Acceptor_1_1Factory.html#acb01c1396fe6f17783fde36374bdef25">make_acceptor</a>(<span class="keywordtype">int</span> max_accepted) = 0;</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno"><a class="line" href="classaperf_1_1Acceptor_1_1Factory.html#a24b328613650e6e12684183a1829b545">  209</a></span>      <span class="keyword">virtual</span> std::string <a class="code hl_function" href="classaperf_1_1Acceptor_1_1Factory.html#a24b328613650e6e12684183a1829b545">get_type</a>() = 0;</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    };</div>
 </div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
-<div class="foldopen" id="foldopen00222" data-start="{" data-end="}">
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno"><a class="line" href="classaperf_1_1Acceptor.html#ab9eb76ebf881f62977849ccadcc0bcac">  222</a></span>    std::unique_ptr&lt;Connection&gt; <a class="code hl_function" href="classaperf_1_1Acceptor.html#ab9eb76ebf881f62977849ccadcc0bcac">accept</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buf_size) {</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>      <span class="keywordflow">if</span> (this-&gt;max_accepted != UNLIMITED_ACCEPTED &amp;&amp;</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>          this-&gt;accepted &gt;= this-&gt;max_accepted) {</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Maximum accepted connections reached.&quot;</span>);</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>      }</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>      std::unique_ptr&lt;Connection&gt; connection = this-&gt;<a class="code hl_function" href="classaperf_1_1Acceptor.html#ae546a6bac40d4e50a4cdde0d513224eb">accept_connection</a>(buf_size);</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>      this-&gt;accepted++;</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>      <span class="keywordflow">return</span> connection;</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    }</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
+<div class="foldopen" id="foldopen00223" data-start="{" data-end="}">
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno"><a class="line" href="classaperf_1_1Acceptor.html#ab9eb76ebf881f62977849ccadcc0bcac">  223</a></span>    std::unique_ptr&lt;Connection&gt; <a class="code hl_function" href="classaperf_1_1Acceptor.html#ab9eb76ebf881f62977849ccadcc0bcac">accept</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buf_size) {</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>      <span class="keywordflow">if</span> (this-&gt;max_accepted != UNLIMITED_ACCEPTED &amp;&amp;</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>          this-&gt;accepted &gt;= this-&gt;max_accepted) {</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Maximum accepted connections reached.&quot;</span>);</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>      }</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>      std::unique_ptr&lt;Connection&gt; connection = this-&gt;<a class="code hl_function" href="classaperf_1_1Acceptor.html#ae546a6bac40d4e50a4cdde0d513224eb">accept_connection</a>(buf_size);</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>      this-&gt;accepted++;</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>      <span class="keywordflow">return</span> connection;</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    }</div>
 </div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classaperf_1_1Acceptor.html">~Acceptor</a>() { }</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno"><a class="line" href="classaperf_1_1Acceptor.html#a28f021ac34a85991b86830c891a0fe90">  244</a></span>    <span class="keyword">virtual</span> std::string <a class="code hl_function" href="classaperf_1_1Acceptor.html#a28f021ac34a85991b86830c891a0fe90">get_connection_instructions</a>() = 0;</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno"><a class="line" href="classaperf_1_1Acceptor.html#adbb07c6836a994550d4f6c5364733db3">  250</a></span>    <span class="keyword">virtual</span> std::string <a class="code hl_function" href="classaperf_1_1Acceptor.html#adbb07c6836a994550d4f6c5364733db3">get_type</a>() = 0;</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>  };</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span> </div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classaperf_1_1Acceptor.html">~Acceptor</a>() { }</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno"><a class="line" href="classaperf_1_1Acceptor.html#a28f021ac34a85991b86830c891a0fe90">  245</a></span>    <span class="keyword">virtual</span> std::string <a class="code hl_function" href="classaperf_1_1Acceptor.html#a28f021ac34a85991b86830c891a0fe90">get_connection_instructions</a>() = 0;</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span> </div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno"><a class="line" href="classaperf_1_1Acceptor.html#adbb07c6836a994550d4f6c5364733db3">  251</a></span>    <span class="keyword">virtual</span> std::string <a class="code hl_function" href="classaperf_1_1Acceptor.html#adbb07c6836a994550d4f6c5364733db3">get_type</a>() = 0;</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>  };</div>
 </div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
-<div class="foldopen" id="foldopen00256" data-start="{" data-end="};">
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno"><a class="line" href="classaperf_1_1TCPSocket.html">  256</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1TCPSocket.html">TCPSocket</a> : <span class="keyword">public</span> <a class="code hl_class" href="classaperf_1_1Socket.html">Socket</a> {</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>  <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    net::StreamSocket socket;</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    std::unique_ptr&lt;char&gt; buf;</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buf_size;</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    <span class="keywordtype">int</span> start_pos;</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    std::queue&lt;std::string&gt; buffered_msgs;</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span> </div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>  <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1TCPSocket.html#a64b91a0b8645d53147ebcc5b52fd9441">close</a>();</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span> </div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    <a class="code hl_function" href="classaperf_1_1TCPSocket.html#a81890bb0b28dbdb097225db67f29de59">TCPSocket</a>(net::StreamSocket &amp;sock, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buf_size);</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    <a class="code hl_class" href="classaperf_1_1TCPSocket.html">~TCPSocket</a>();</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    std::string <a class="code hl_function" href="classaperf_1_1TCPSocket.html#a444dcc4e269dc2ff36328024e517ec42">get_address</a>();</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code hl_function" href="classaperf_1_1TCPSocket.html#aa2f948f6c8f02963505bf4aef4cea408">get_port</a>();</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classaperf_1_1TCPSocket.html#aa3398dd6b7c990e1d0742f9bb7213715">get_buf_size</a>();</div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="classaperf_1_1TCPSocket.html#a4523cd747d0c2b633a9646a65017aaee">read</a>(<span class="keywordtype">char</span> *buf, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> len, <span class="keywordtype">long</span> timeout_seconds);</div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    std::string <a class="code hl_function" href="classaperf_1_1TCPSocket.html#a4523cd747d0c2b633a9646a65017aaee">read</a>(<span class="keywordtype">long</span> timeout_seconds = NO_TIMEOUT);</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1TCPSocket.html#ac7add750178ae8a888d4a01977f30826">write</a>(std::string msg, <span class="keywordtype">bool</span> new_line);</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1TCPSocket.html#ac7add750178ae8a888d4a01977f30826">write</a>(fs::path file);</div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1TCPSocket.html#ac7add750178ae8a888d4a01977f30826">write</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> len, <span class="keywordtype">char</span> *buf);</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>  };</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
+<div class="foldopen" id="foldopen00257" data-start="{" data-end="};">
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno"><a class="line" href="classaperf_1_1TCPSocket.html">  257</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1TCPSocket.html">TCPSocket</a> : <span class="keyword">public</span> <a class="code hl_class" href="classaperf_1_1Socket.html">Socket</a> {</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>  <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    net::StreamSocket socket;</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    std::unique_ptr&lt;char&gt; buf;</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buf_size;</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    <span class="keywordtype">int</span> start_pos;</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    std::queue&lt;std::string&gt; buffered_msgs;</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span> </div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>  <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1TCPSocket.html#a64b91a0b8645d53147ebcc5b52fd9441">close</a>();</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>  <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    <a class="code hl_function" href="classaperf_1_1TCPSocket.html#a81890bb0b28dbdb097225db67f29de59">TCPSocket</a>(net::StreamSocket &amp;sock, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buf_size);</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    <a class="code hl_class" href="classaperf_1_1TCPSocket.html">~TCPSocket</a>();</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    std::string <a class="code hl_function" href="classaperf_1_1TCPSocket.html#a444dcc4e269dc2ff36328024e517ec42">get_address</a>();</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code hl_function" href="classaperf_1_1TCPSocket.html#aa2f948f6c8f02963505bf4aef4cea408">get_port</a>();</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classaperf_1_1TCPSocket.html#aa3398dd6b7c990e1d0742f9bb7213715">get_buf_size</a>();</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="classaperf_1_1TCPSocket.html#a4523cd747d0c2b633a9646a65017aaee">read</a>(<span class="keywordtype">char</span> *buf, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> len, <span class="keywordtype">long</span> timeout_seconds);</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    std::string <a class="code hl_function" href="classaperf_1_1TCPSocket.html#a4523cd747d0c2b633a9646a65017aaee">read</a>(<span class="keywordtype">long</span> timeout_seconds = NO_TIMEOUT);</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1TCPSocket.html#ac7add750178ae8a888d4a01977f30826">write</a>(std::string msg, <span class="keywordtype">bool</span> new_line);</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1TCPSocket.html#ac7add750178ae8a888d4a01977f30826">write</a>(fs::path file);</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1TCPSocket.html#ac7add750178ae8a888d4a01977f30826">write</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> len, <span class="keywordtype">char</span> *buf);</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>  };</div>
 </div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span> </div>
-<div class="foldopen" id="foldopen00283" data-start="{" data-end="};">
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno"><a class="line" href="classaperf_1_1TCPAcceptor.html">  283</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1TCPAcceptor.html">TCPAcceptor</a> : <span class="keyword">public</span> <a class="code hl_class" href="classaperf_1_1Acceptor.html">Acceptor</a> {</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>  <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    net::ServerSocket acceptor;</div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span> </div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    <a class="code hl_class" href="classaperf_1_1TCPAcceptor.html">TCPAcceptor</a>(std::string address, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> port,</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>                <span class="keywordtype">int</span> max_accepted,</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>                <span class="keywordtype">bool</span> try_subsequent_ports);</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>  <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    std::unique_ptr&lt;Connection&gt; <a class="code hl_function" href="classaperf_1_1TCPAcceptor.html#a827694c3fa110052033f01eb69b110e5">accept_connection</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buf_size);</div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1TCPAcceptor.html#ae3888f30b2477bb67299a039e3492be4">close</a>();</div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span> </div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>  <span class="keyword">public</span>:</div>
-<div class="foldopen" id="foldopen00299" data-start="{" data-end="};">
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno"><a class="line" href="classaperf_1_1TCPAcceptor_1_1Factory.html">  299</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1TCPAcceptor_1_1Factory.html">Factory</a> : <span class="keyword">public</span> <a class="code hl_class" href="classaperf_1_1Acceptor_1_1Factory.html">Acceptor::Factory</a> {</div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>      std::string address;</div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>      <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> port;</div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>      <span class="keywordtype">bool</span> try_subsequent_ports;</div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span> </div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    <span class="keyword">public</span>:</div>
-<div class="foldopen" id="foldopen00317" data-start="{" data-end="}">
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno"><a class="line" href="classaperf_1_1TCPAcceptor_1_1Factory.html#ae7b294956ca21b5da54d48c14eeb66c9">  317</a></span>      <a class="code hl_function" href="classaperf_1_1TCPAcceptor_1_1Factory.html#ae7b294956ca21b5da54d48c14eeb66c9">Factory</a>(std::string address, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> port,</div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>              <span class="keywordtype">bool</span> try_subsequent_ports = <span class="keyword">false</span>) {</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>        this-&gt;address = address;</div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>        this-&gt;port = port;</div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>        this-&gt;try_subsequent_ports = try_subsequent_ports;</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>      };</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
+<div class="foldopen" id="foldopen00284" data-start="{" data-end="};">
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno"><a class="line" href="classaperf_1_1TCPAcceptor.html">  284</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1TCPAcceptor.html">TCPAcceptor</a> : <span class="keyword">public</span> <a class="code hl_class" href="classaperf_1_1Acceptor.html">Acceptor</a> {</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>  <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    net::ServerSocket acceptor;</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span> </div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    <a class="code hl_class" href="classaperf_1_1TCPAcceptor.html">TCPAcceptor</a>(std::string address, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> port,</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>                <span class="keywordtype">int</span> max_accepted,</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>                <span class="keywordtype">bool</span> try_subsequent_ports);</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span> </div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>  <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    std::unique_ptr&lt;Connection&gt; <a class="code hl_function" href="classaperf_1_1TCPAcceptor.html#a827694c3fa110052033f01eb69b110e5">accept_connection</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buf_size);</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1TCPAcceptor.html#ae3888f30b2477bb67299a039e3492be4">close</a>();</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span> </div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>  <span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00300" data-start="{" data-end="};">
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno"><a class="line" href="classaperf_1_1TCPAcceptor_1_1Factory.html">  300</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1TCPAcceptor_1_1Factory.html">Factory</a> : <span class="keyword">public</span> <a class="code hl_class" href="classaperf_1_1Acceptor_1_1Factory.html">Acceptor::Factory</a> {</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>      std::string address;</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>      <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> port;</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>      <span class="keywordtype">bool</span> try_subsequent_ports;</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span> </div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    <span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00318" data-start="{" data-end="}">
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno"><a class="line" href="classaperf_1_1TCPAcceptor_1_1Factory.html#ae7b294956ca21b5da54d48c14eeb66c9">  318</a></span>      <a class="code hl_function" href="classaperf_1_1TCPAcceptor_1_1Factory.html#ae7b294956ca21b5da54d48c14eeb66c9">Factory</a>(std::string address, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> port,</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>              <span class="keywordtype">bool</span> try_subsequent_ports = <span class="keyword">false</span>) {</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>        this-&gt;address = address;</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>        this-&gt;port = port;</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>        this-&gt;try_subsequent_ports = try_subsequent_ports;</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>      };</div>
 </div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span> </div>
-<div class="foldopen" id="foldopen00324" data-start="{" data-end="}">
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno"><a class="line" href="classaperf_1_1TCPAcceptor_1_1Factory.html#a4c3e0d8522cb9310b90cede93be7f9da">  324</a></span>      std::unique_ptr&lt;Acceptor&gt; <a class="code hl_function" href="classaperf_1_1TCPAcceptor_1_1Factory.html#a4c3e0d8522cb9310b90cede93be7f9da">make_acceptor</a>(<span class="keywordtype">int</span> max_accepted) {</div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        <span class="keywordflow">return</span> std::unique_ptr&lt;Acceptor&gt;(<span class="keyword">new</span> <a class="code hl_class" href="classaperf_1_1TCPAcceptor.html">TCPAcceptor</a>(this-&gt;address,</div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>                                                         this-&gt;port,</div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>                                                         max_accepted,</div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>                                                         this-&gt;try_subsequent_ports));</div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>      }</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span> </div>
+<div class="foldopen" id="foldopen00325" data-start="{" data-end="}">
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno"><a class="line" href="classaperf_1_1TCPAcceptor_1_1Factory.html#a4c3e0d8522cb9310b90cede93be7f9da">  325</a></span>      std::unique_ptr&lt;Acceptor&gt; <a class="code hl_function" href="classaperf_1_1TCPAcceptor_1_1Factory.html#a4c3e0d8522cb9310b90cede93be7f9da">make_acceptor</a>(<span class="keywordtype">int</span> max_accepted) {</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>        <span class="keywordflow">return</span> std::unique_ptr&lt;Acceptor&gt;(<span class="keyword">new</span> <a class="code hl_class" href="classaperf_1_1TCPAcceptor.html">TCPAcceptor</a>(this-&gt;address,</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>                                                         this-&gt;port,</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>                                                         max_accepted,</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>                                                         this-&gt;try_subsequent_ports));</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>      }</div>
 </div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span> </div>
-<div class="foldopen" id="foldopen00331" data-start="{" data-end="}">
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno"><a class="line" href="classaperf_1_1TCPAcceptor_1_1Factory.html#a7ea7e8a124a1cd0c7b0ac0b5eb18de0d">  331</a></span>      std::string <a class="code hl_function" href="classaperf_1_1TCPAcceptor_1_1Factory.html#a7ea7e8a124a1cd0c7b0ac0b5eb18de0d">get_type</a>() {</div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;tcp&quot;</span>;</div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>      }</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span> </div>
+<div class="foldopen" id="foldopen00332" data-start="{" data-end="}">
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno"><a class="line" href="classaperf_1_1TCPAcceptor_1_1Factory.html#a7ea7e8a124a1cd0c7b0ac0b5eb18de0d">  332</a></span>      std::string <a class="code hl_function" href="classaperf_1_1TCPAcceptor_1_1Factory.html#a7ea7e8a124a1cd0c7b0ac0b5eb18de0d">get_type</a>() {</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;tcp&quot;</span>;</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>      }</div>
 </div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>    };</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    };</div>
 </div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span> </div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>    <a class="code hl_class" href="classaperf_1_1TCPAcceptor.html">~TCPAcceptor</a>();</div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>    std::string <a class="code hl_function" href="classaperf_1_1TCPAcceptor.html#ae96d678df57cd458cee01ae05219389c">get_connection_instructions</a>();</div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    std::string <a class="code hl_function" href="classaperf_1_1TCPAcceptor.html#aa7c6bddb6bffedaa733c67549c98e9a3">get_type</a>();</div>
-<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>  };</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span> </div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>    <a class="code hl_class" href="classaperf_1_1TCPAcceptor.html">~TCPAcceptor</a>();</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    std::string <a class="code hl_function" href="classaperf_1_1TCPAcceptor.html#ae96d678df57cd458cee01ae05219389c">get_connection_instructions</a>();</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    std::string <a class="code hl_function" href="classaperf_1_1TCPAcceptor.html#aa7c6bddb6bffedaa733c67549c98e9a3">get_type</a>();</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>  };</div>
 </div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span> </div>
-<div class="foldopen" id="foldopen00344" data-start="{" data-end="};">
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno"><a class="line" href="classaperf_1_1FileDescriptor.html">  344</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1FileDescriptor.html">FileDescriptor</a> : <span class="keyword">public</span> <a class="code hl_class" href="classaperf_1_1Connection.html">Connection</a> {</div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>  <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>    <span class="keywordtype">int</span> read_fd[2];</div>
-<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>    <span class="keywordtype">int</span> write_fd[2];</div>
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buf_size;</div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>    std::queue&lt;std::string&gt; buffered_msgs;</div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>    std::unique_ptr&lt;char&gt; buf;</div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>    <span class="keywordtype">int</span> start_pos;</div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span> </div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>    <a class="code hl_function" href="classaperf_1_1FileDescriptor.html#a82e4816115b519a1ac2bb70b1aef5429">FileDescriptor</a>(<span class="keywordtype">int</span> read_fd[2],</div>
-<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>                   <span class="keywordtype">int</span> write_fd[2],</div>
-<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>                   <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buf_size);</div>
-<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>    <a class="code hl_class" href="classaperf_1_1FileDescriptor.html">~FileDescriptor</a>();</div>
-<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="classaperf_1_1FileDescriptor.html#a8ef1f4aea2cb47a6cbbd1e0732c4211c">read</a>(<span class="keywordtype">char</span> *buf, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> len, <span class="keywordtype">long</span> timeout_seconds);</div>
-<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>    std::string <a class="code hl_function" href="classaperf_1_1FileDescriptor.html#a8ef1f4aea2cb47a6cbbd1e0732c4211c">read</a>(<span class="keywordtype">long</span> timeout_seconds = NO_TIMEOUT);</div>
-<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1FileDescriptor.html#a504f8a9657f4f07c1663d29c4c8fdf23">write</a>(std::string msg, <span class="keywordtype">bool</span> new_line);</div>
-<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1FileDescriptor.html#a504f8a9657f4f07c1663d29c4c8fdf23">write</a>(fs::path file);</div>
-<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1FileDescriptor.html#a504f8a9657f4f07c1663d29c4c8fdf23">write</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> len, <span class="keywordtype">char</span> *buf);</div>
-<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classaperf_1_1FileDescriptor.html#a150929a4797a6fe5df578ff846b11362">get_buf_size</a>();</div>
-<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1FileDescriptor.html#a3e85ba84e6f1248812eb227c551e66e2">close</a>();</div>
-<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>  };</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span> </div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span><span class="preprocessor">#ifdef BOOST_OS_UNIX</span></div>
+<div class="foldopen" id="foldopen00347" data-start="{" data-end="};">
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno"><a class="line" href="classaperf_1_1FileDescriptor.html">  347</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1FileDescriptor.html">FileDescriptor</a> : <span class="keyword">public</span> <a class="code hl_class" href="classaperf_1_1Connection.html">Connection</a> {</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>  <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>    <span class="keywordtype">int</span> read_fd[2];</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>    <span class="keywordtype">int</span> write_fd[2];</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buf_size;</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>    std::queue&lt;std::string&gt; buffered_msgs;</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>    std::unique_ptr&lt;char&gt; buf;</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>    <span class="keywordtype">int</span> start_pos;</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span> </div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>  <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>    <a class="code hl_function" href="classaperf_1_1FileDescriptor.html#a82e4816115b519a1ac2bb70b1aef5429">FileDescriptor</a>(<span class="keywordtype">int</span> read_fd[2],</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>                   <span class="keywordtype">int</span> write_fd[2],</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>                   <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buf_size);</div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>    <a class="code hl_class" href="classaperf_1_1FileDescriptor.html">~FileDescriptor</a>();</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="classaperf_1_1FileDescriptor.html#a8ef1f4aea2cb47a6cbbd1e0732c4211c">read</a>(<span class="keywordtype">char</span> *buf, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> len, <span class="keywordtype">long</span> timeout_seconds);</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>    std::string <a class="code hl_function" href="classaperf_1_1FileDescriptor.html#a8ef1f4aea2cb47a6cbbd1e0732c4211c">read</a>(<span class="keywordtype">long</span> timeout_seconds = NO_TIMEOUT);</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1FileDescriptor.html#a504f8a9657f4f07c1663d29c4c8fdf23">write</a>(std::string msg, <span class="keywordtype">bool</span> new_line);</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1FileDescriptor.html#a504f8a9657f4f07c1663d29c4c8fdf23">write</a>(fs::path file);</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1FileDescriptor.html#a504f8a9657f4f07c1663d29c4c8fdf23">write</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> len, <span class="keywordtype">char</span> *buf);</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classaperf_1_1FileDescriptor.html#a150929a4797a6fe5df578ff846b11362">get_buf_size</a>();</div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1FileDescriptor.html#a3e85ba84e6f1248812eb227c551e66e2">close</a>();</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>  };</div>
 </div>
-<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span> </div>
-<div class="foldopen" id="foldopen00370" data-start="{" data-end="};">
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno"><a class="line" href="classaperf_1_1PipeAcceptor.html">  370</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1PipeAcceptor.html">PipeAcceptor</a> : <span class="keyword">public</span> <a class="code hl_class" href="classaperf_1_1Acceptor.html">Acceptor</a> {</div>
-<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>  <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>    <span class="keywordtype">int</span> read_fd[2];</div>
-<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>    <span class="keywordtype">int</span> write_fd[2];</div>
-<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>    <a class="code hl_class" href="classaperf_1_1PipeAcceptor.html">PipeAcceptor</a>();</div>
-<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span> </div>
-<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>  <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>    std::unique_ptr&lt;Connection&gt; <a class="code hl_function" href="classaperf_1_1PipeAcceptor.html#ab9f28c445096026c584296e7eabd60e1">accept_connection</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buf_size);</div>
-<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1PipeAcceptor.html#a09435a1066186376d86ad8f7b98ad815">close</a>();</div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span> </div>
+<div class="foldopen" id="foldopen00374" data-start="{" data-end="};">
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno"><a class="line" href="classaperf_1_1PipeAcceptor.html">  374</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1PipeAcceptor.html">PipeAcceptor</a> : <span class="keyword">public</span> <a class="code hl_class" href="classaperf_1_1Acceptor.html">Acceptor</a> {</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>  <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    <span class="keywordtype">int</span> read_fd[2];</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>    <span class="keywordtype">int</span> write_fd[2];</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>    <a class="code hl_class" href="classaperf_1_1PipeAcceptor.html">PipeAcceptor</a>();</div>
 <div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span> </div>
-<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>  <span class="keyword">public</span>:</div>
-<div class="foldopen" id="foldopen00384" data-start="{" data-end="};">
-<div class="line"><a id="l00384" name="l00384"></a><span class="lineno"><a class="line" href="classaperf_1_1PipeAcceptor_1_1Factory.html">  384</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1PipeAcceptor_1_1Factory.html">Factory</a> : <span class="keyword">public</span> <a class="code hl_class" href="classaperf_1_1Acceptor_1_1Factory.html">Acceptor::Factory</a> {</div>
-<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>    <span class="keyword">public</span>:</div>
-<div class="foldopen" id="foldopen00394" data-start="{" data-end="}">
-<div class="line"><a id="l00394" name="l00394"></a><span class="lineno"><a class="line" href="classaperf_1_1PipeAcceptor_1_1Factory.html#a1df1f0dfe020eeeb4ede3766a4f42709">  394</a></span>      std::unique_ptr&lt;Acceptor&gt; <a class="code hl_function" href="classaperf_1_1PipeAcceptor_1_1Factory.html#a1df1f0dfe020eeeb4ede3766a4f42709">make_acceptor</a>(<span class="keywordtype">int</span> max_accepted) {</div>
-<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>        <span class="keywordflow">if</span> (max_accepted != 1) {</div>
-<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>          <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;max_accepted can only be 1 for FileDescriptor&quot;</span>);</div>
-<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>        }</div>
-<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span> </div>
-<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>        <span class="keywordflow">return</span> std::unique_ptr&lt;Acceptor&gt;(<span class="keyword">new</span> <a class="code hl_class" href="classaperf_1_1PipeAcceptor.html">PipeAcceptor</a>());</div>
-<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>      }</div>
-</div>
-<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span> </div>
-<div class="foldopen" id="foldopen00402" data-start="{" data-end="}">
-<div class="line"><a id="l00402" name="l00402"></a><span class="lineno"><a class="line" href="classaperf_1_1PipeAcceptor_1_1Factory.html#ab84b6d455a85867d11f1e4d78caed707">  402</a></span>      std::string <a class="code hl_function" href="classaperf_1_1PipeAcceptor_1_1Factory.html#ab84b6d455a85867d11f1e4d78caed707">get_type</a>() {</div>
-<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;pipe&quot;</span>;</div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>  <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>    std::unique_ptr&lt;Connection&gt; <a class="code hl_function" href="classaperf_1_1PipeAcceptor.html#ab9f28c445096026c584296e7eabd60e1">accept_connection</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buf_size);</div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classaperf_1_1PipeAcceptor.html#a09435a1066186376d86ad8f7b98ad815">close</a>();</div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span> </div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>  <span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00388" data-start="{" data-end="};">
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno"><a class="line" href="classaperf_1_1PipeAcceptor_1_1Factory.html">  388</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classaperf_1_1PipeAcceptor_1_1Factory.html">Factory</a> : <span class="keyword">public</span> <a class="code hl_class" href="classaperf_1_1Acceptor_1_1Factory.html">Acceptor::Factory</a> {</div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>    <span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00398" data-start="{" data-end="}">
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno"><a class="line" href="classaperf_1_1PipeAcceptor_1_1Factory.html#a1df1f0dfe020eeeb4ede3766a4f42709">  398</a></span>      std::unique_ptr&lt;Acceptor&gt; <a class="code hl_function" href="classaperf_1_1PipeAcceptor_1_1Factory.html#a1df1f0dfe020eeeb4ede3766a4f42709">make_acceptor</a>(<span class="keywordtype">int</span> max_accepted) {</div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>        <span class="keywordflow">if</span> (max_accepted != 1) {</div>
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>          <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;max_accepted can only be 1 for FileDescriptor&quot;</span>);</div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>        }</div>
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span> </div>
+<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>        <span class="keywordflow">return</span> std::unique_ptr&lt;Acceptor&gt;(<span class="keyword">new</span> <a class="code hl_class" href="classaperf_1_1PipeAcceptor.html">PipeAcceptor</a>());</div>
 <div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>      }</div>
 </div>
-<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>    };</div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span> </div>
+<div class="foldopen" id="foldopen00406" data-start="{" data-end="}">
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno"><a class="line" href="classaperf_1_1PipeAcceptor_1_1Factory.html#ab84b6d455a85867d11f1e4d78caed707">  406</a></span>      std::string <a class="code hl_function" href="classaperf_1_1PipeAcceptor_1_1Factory.html#ab84b6d455a85867d11f1e4d78caed707">get_type</a>() {</div>
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;pipe&quot;</span>;</div>
+<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>      }</div>
 </div>
-<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span> </div>
-<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>    std::string <a class="code hl_function" href="classaperf_1_1PipeAcceptor.html#a800ef13c5ab42bc4f711527584dec2d2">get_connection_instructions</a>();</div>
-<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>    std::string <a class="code hl_function" href="classaperf_1_1PipeAcceptor.html#a9b020d0349999d4e6921f3996070cbe6">get_type</a>();</div>
-<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>  };</div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>    };</div>
 </div>
-<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>}</div>
-<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span> </div>
-<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aclassaperf_1_1Acceptor_1_1Factory_html"><div class="ttname"><a href="classaperf_1_1Acceptor_1_1Factory.html">aperf::Acceptor::Factory</a></div><div class="ttdef"><b>Definition</b> socket.hpp:193</div></div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span> </div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>    std::string <a class="code hl_function" href="classaperf_1_1PipeAcceptor.html#a800ef13c5ab42bc4f711527584dec2d2">get_connection_instructions</a>();</div>
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>    std::string <a class="code hl_function" href="classaperf_1_1PipeAcceptor.html#a9b020d0349999d4e6921f3996070cbe6">get_type</a>();</div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>  };</div>
+</div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>}</div>
+<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span> </div>
+<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aclassaperf_1_1Acceptor_1_1Factory_html"><div class="ttname"><a href="classaperf_1_1Acceptor_1_1Factory.html">aperf::Acceptor::Factory</a></div><div class="ttdef"><b>Definition</b> socket.hpp:194</div></div>
 <div class="ttc" id="aclassaperf_1_1Acceptor_1_1Factory_html_a24b328613650e6e12684183a1829b545"><div class="ttname"><a href="classaperf_1_1Acceptor_1_1Factory.html#a24b328613650e6e12684183a1829b545">aperf::Acceptor::Factory::get_type</a></div><div class="ttdeci">virtual std::string get_type()=0</div></div>
 <div class="ttc" id="aclassaperf_1_1Acceptor_1_1Factory_html_acb01c1396fe6f17783fde36374bdef25"><div class="ttname"><a href="classaperf_1_1Acceptor_1_1Factory.html#acb01c1396fe6f17783fde36374bdef25">aperf::Acceptor::Factory::make_acceptor</a></div><div class="ttdeci">virtual std::unique_ptr&lt; Acceptor &gt; make_acceptor(int max_accepted)=0</div></div>
-<div class="ttc" id="aclassaperf_1_1Acceptor_html"><div class="ttname"><a href="classaperf_1_1Acceptor.html">aperf::Acceptor</a></div><div class="ttdef"><b>Definition</b> socket.hpp:158</div></div>
+<div class="ttc" id="aclassaperf_1_1Acceptor_html"><div class="ttname"><a href="classaperf_1_1Acceptor.html">aperf::Acceptor</a></div><div class="ttdef"><b>Definition</b> socket.hpp:159</div></div>
 <div class="ttc" id="aclassaperf_1_1Acceptor_html_a28f021ac34a85991b86830c891a0fe90"><div class="ttname"><a href="classaperf_1_1Acceptor.html#a28f021ac34a85991b86830c891a0fe90">aperf::Acceptor::get_connection_instructions</a></div><div class="ttdeci">virtual std::string get_connection_instructions()=0</div></div>
 <div class="ttc" id="aclassaperf_1_1Acceptor_html_a4edcc149f1b75050739a56e07f099b7b"><div class="ttname"><a href="classaperf_1_1Acceptor.html#a4edcc149f1b75050739a56e07f099b7b">aperf::Acceptor::close</a></div><div class="ttdeci">virtual void close()=0</div></div>
-<div class="ttc" id="aclassaperf_1_1Acceptor_html_a8ffe662d59ab2cb3bae83e89f078731c"><div class="ttname"><a href="classaperf_1_1Acceptor.html#a8ffe662d59ab2cb3bae83e89f078731c">aperf::Acceptor::Acceptor</a></div><div class="ttdeci">Acceptor(int max_accepted)</div><div class="ttdef"><b>Definition</b> socket.hpp:171</div></div>
-<div class="ttc" id="aclassaperf_1_1Acceptor_html_ab9eb76ebf881f62977849ccadcc0bcac"><div class="ttname"><a href="classaperf_1_1Acceptor.html#ab9eb76ebf881f62977849ccadcc0bcac">aperf::Acceptor::accept</a></div><div class="ttdeci">std::unique_ptr&lt; Connection &gt; accept(unsigned int buf_size)</div><div class="ttdef"><b>Definition</b> socket.hpp:222</div></div>
+<div class="ttc" id="aclassaperf_1_1Acceptor_html_a8ffe662d59ab2cb3bae83e89f078731c"><div class="ttname"><a href="classaperf_1_1Acceptor.html#a8ffe662d59ab2cb3bae83e89f078731c">aperf::Acceptor::Acceptor</a></div><div class="ttdeci">Acceptor(int max_accepted)</div><div class="ttdef"><b>Definition</b> socket.hpp:172</div></div>
+<div class="ttc" id="aclassaperf_1_1Acceptor_html_ab9eb76ebf881f62977849ccadcc0bcac"><div class="ttname"><a href="classaperf_1_1Acceptor.html#ab9eb76ebf881f62977849ccadcc0bcac">aperf::Acceptor::accept</a></div><div class="ttdeci">std::unique_ptr&lt; Connection &gt; accept(unsigned int buf_size)</div><div class="ttdef"><b>Definition</b> socket.hpp:223</div></div>
 <div class="ttc" id="aclassaperf_1_1Acceptor_html_adbb07c6836a994550d4f6c5364733db3"><div class="ttname"><a href="classaperf_1_1Acceptor.html#adbb07c6836a994550d4f6c5364733db3">aperf::Acceptor::get_type</a></div><div class="ttdeci">virtual std::string get_type()=0</div></div>
 <div class="ttc" id="aclassaperf_1_1Acceptor_html_ae546a6bac40d4e50a4cdde0d513224eb"><div class="ttname"><a href="classaperf_1_1Acceptor.html#ae546a6bac40d4e50a4cdde0d513224eb">aperf::Acceptor::accept_connection</a></div><div class="ttdeci">virtual std::unique_ptr&lt; Connection &gt; accept_connection(unsigned int buf_size)=0</div></div>
-<div class="ttc" id="aclassaperf_1_1AlreadyInUseException_html"><div class="ttname"><a href="classaperf_1_1AlreadyInUseException.html">aperf::AlreadyInUseException</a></div><div class="ttdef"><b>Definition</b> socket.hpp:41</div></div>
-<div class="ttc" id="aclassaperf_1_1ConnectionException_html"><div class="ttname"><a href="classaperf_1_1ConnectionException.html">aperf::ConnectionException</a></div><div class="ttdef"><b>Definition</b> socket.hpp:31</div></div>
-<div class="ttc" id="aclassaperf_1_1Connection_html"><div class="ttname"><a href="classaperf_1_1Connection.html">aperf::Connection</a></div><div class="ttdef"><b>Definition</b> socket.hpp:55</div></div>
+<div class="ttc" id="aclassaperf_1_1AlreadyInUseException_html"><div class="ttname"><a href="classaperf_1_1AlreadyInUseException.html">aperf::AlreadyInUseException</a></div><div class="ttdef"><b>Definition</b> socket.hpp:42</div></div>
+<div class="ttc" id="aclassaperf_1_1ConnectionException_html"><div class="ttname"><a href="classaperf_1_1ConnectionException.html">aperf::ConnectionException</a></div><div class="ttdef"><b>Definition</b> socket.hpp:32</div></div>
+<div class="ttc" id="aclassaperf_1_1Connection_html"><div class="ttname"><a href="classaperf_1_1Connection.html">aperf::Connection</a></div><div class="ttdef"><b>Definition</b> socket.hpp:56</div></div>
 <div class="ttc" id="aclassaperf_1_1Connection_html_a4f6c4fd7275d36a8eb54b33c32200236"><div class="ttname"><a href="classaperf_1_1Connection.html#a4f6c4fd7275d36a8eb54b33c32200236">aperf::Connection::read</a></div><div class="ttdeci">virtual std::string read(long timeout_seconds=NO_TIMEOUT)=0</div></div>
 <div class="ttc" id="aclassaperf_1_1Connection_html_a7700aa12b6b27d45c7bc9ccfe9544476"><div class="ttname"><a href="classaperf_1_1Connection.html#a7700aa12b6b27d45c7bc9ccfe9544476">aperf::Connection::get_buf_size</a></div><div class="ttdeci">virtual unsigned int get_buf_size()=0</div></div>
 <div class="ttc" id="aclassaperf_1_1Connection_html_a771ddae16f4b86e2ee48b095bb2486aa"><div class="ttname"><a href="classaperf_1_1Connection.html#a771ddae16f4b86e2ee48b095bb2486aa">aperf::Connection::close</a></div><div class="ttdeci">virtual void close()=0</div></div>
@@ -395,21 +398,21 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aclassaperf_1_1Connection_html_ab0b034ab29df38f19a713cb8d6bb7b5a"><div class="ttname"><a href="classaperf_1_1Connection.html#ab0b034ab29df38f19a713cb8d6bb7b5a">aperf::Connection::write</a></div><div class="ttdeci">virtual void write(std::string msg, bool new_line=true)=0</div></div>
 <div class="ttc" id="aclassaperf_1_1Connection_html_ab413bcd2d98f4782300009937701a9a6"><div class="ttname"><a href="classaperf_1_1Connection.html#ab413bcd2d98f4782300009937701a9a6">aperf::Connection::read</a></div><div class="ttdeci">virtual int read(char *buf, unsigned int len, long timeout_seconds)=0</div></div>
 <div class="ttc" id="aclassaperf_1_1Connection_html_ae2f970a26ff6bd1cd17c4625f3458242"><div class="ttname"><a href="classaperf_1_1Connection.html#ae2f970a26ff6bd1cd17c4625f3458242">aperf::Connection::write</a></div><div class="ttdeci">virtual void write(fs::path file)=0</div></div>
-<div class="ttc" id="aclassaperf_1_1FileDescriptor_html"><div class="ttname"><a href="classaperf_1_1FileDescriptor.html">aperf::FileDescriptor</a></div><div class="ttdef"><b>Definition</b> socket.hpp:344</div></div>
-<div class="ttc" id="aclassaperf_1_1FileDescriptor_html_a150929a4797a6fe5df578ff846b11362"><div class="ttname"><a href="classaperf_1_1FileDescriptor.html#a150929a4797a6fe5df578ff846b11362">aperf::FileDescriptor::get_buf_size</a></div><div class="ttdeci">unsigned int get_buf_size()</div><div class="ttdef"><b>Definition</b> socket.cpp:480</div></div>
-<div class="ttc" id="aclassaperf_1_1FileDescriptor_html_a3e85ba84e6f1248812eb227c551e66e2"><div class="ttname"><a href="classaperf_1_1FileDescriptor.html#a3e85ba84e6f1248812eb227c551e66e2">aperf::FileDescriptor::close</a></div><div class="ttdeci">void close()</div><div class="ttdef"><b>Definition</b> socket.cpp:308</div></div>
-<div class="ttc" id="aclassaperf_1_1FileDescriptor_html_a504f8a9657f4f07c1663d29c4c8fdf23"><div class="ttname"><a href="classaperf_1_1FileDescriptor.html#a504f8a9657f4f07c1663d29c4c8fdf23">aperf::FileDescriptor::write</a></div><div class="ttdeci">void write(std::string msg, bool new_line)</div><div class="ttdef"><b>Definition</b> socket.cpp:418</div></div>
-<div class="ttc" id="aclassaperf_1_1FileDescriptor_html_a82e4816115b519a1ac2bb70b1aef5429"><div class="ttname"><a href="classaperf_1_1FileDescriptor.html#a82e4816115b519a1ac2bb70b1aef5429">aperf::FileDescriptor::FileDescriptor</a></div><div class="ttdeci">FileDescriptor(int read_fd[2], int write_fd[2], unsigned int buf_size)</div><div class="ttdef"><b>Definition</b> socket.cpp:281</div></div>
-<div class="ttc" id="aclassaperf_1_1FileDescriptor_html_a8ef1f4aea2cb47a6cbbd1e0732c4211c"><div class="ttname"><a href="classaperf_1_1FileDescriptor.html#a8ef1f4aea2cb47a6cbbd1e0732c4211c">aperf::FileDescriptor::read</a></div><div class="ttdeci">int read(char *buf, unsigned int len, long timeout_seconds)</div><div class="ttdef"><b>Definition</b> socket.cpp:320</div></div>
-<div class="ttc" id="aclassaperf_1_1PipeAcceptor_1_1Factory_html"><div class="ttname"><a href="classaperf_1_1PipeAcceptor_1_1Factory.html">aperf::PipeAcceptor::Factory</a></div><div class="ttdef"><b>Definition</b> socket.hpp:384</div></div>
-<div class="ttc" id="aclassaperf_1_1PipeAcceptor_1_1Factory_html_a1df1f0dfe020eeeb4ede3766a4f42709"><div class="ttname"><a href="classaperf_1_1PipeAcceptor_1_1Factory.html#a1df1f0dfe020eeeb4ede3766a4f42709">aperf::PipeAcceptor::Factory::make_acceptor</a></div><div class="ttdeci">std::unique_ptr&lt; Acceptor &gt; make_acceptor(int max_accepted)</div><div class="ttdef"><b>Definition</b> socket.hpp:394</div></div>
-<div class="ttc" id="aclassaperf_1_1PipeAcceptor_1_1Factory_html_ab84b6d455a85867d11f1e4d78caed707"><div class="ttname"><a href="classaperf_1_1PipeAcceptor_1_1Factory.html#ab84b6d455a85867d11f1e4d78caed707">aperf::PipeAcceptor::Factory::get_type</a></div><div class="ttdeci">std::string get_type()</div><div class="ttdef"><b>Definition</b> socket.hpp:402</div></div>
-<div class="ttc" id="aclassaperf_1_1PipeAcceptor_html"><div class="ttname"><a href="classaperf_1_1PipeAcceptor.html">aperf::PipeAcceptor</a></div><div class="ttdef"><b>Definition</b> socket.hpp:370</div></div>
-<div class="ttc" id="aclassaperf_1_1PipeAcceptor_html_a09435a1066186376d86ad8f7b98ad815"><div class="ttname"><a href="classaperf_1_1PipeAcceptor.html#a09435a1066186376d86ad8f7b98ad815">aperf::PipeAcceptor::close</a></div><div class="ttdeci">void close()</div><div class="ttdef"><b>Definition</b> socket.cpp:534</div></div>
-<div class="ttc" id="aclassaperf_1_1PipeAcceptor_html_a800ef13c5ab42bc4f711527584dec2d2"><div class="ttname"><a href="classaperf_1_1PipeAcceptor.html#a800ef13c5ab42bc4f711527584dec2d2">aperf::PipeAcceptor::get_connection_instructions</a></div><div class="ttdeci">std::string get_connection_instructions()</div><div class="ttdef"><b>Definition</b> socket.cpp:539</div></div>
-<div class="ttc" id="aclassaperf_1_1PipeAcceptor_html_a9b020d0349999d4e6921f3996070cbe6"><div class="ttname"><a href="classaperf_1_1PipeAcceptor.html#a9b020d0349999d4e6921f3996070cbe6">aperf::PipeAcceptor::get_type</a></div><div class="ttdeci">std::string get_type()</div><div class="ttdef"><b>Definition</b> socket.cpp:543</div></div>
-<div class="ttc" id="aclassaperf_1_1PipeAcceptor_html_ab9f28c445096026c584296e7eabd60e1"><div class="ttname"><a href="classaperf_1_1PipeAcceptor.html#ab9f28c445096026c584296e7eabd60e1">aperf::PipeAcceptor::accept_connection</a></div><div class="ttdeci">std::unique_ptr&lt; Connection &gt; accept_connection(unsigned int buf_size)</div><div class="ttdef"><b>Definition</b> socket.cpp:503</div></div>
-<div class="ttc" id="aclassaperf_1_1Socket_html"><div class="ttname"><a href="classaperf_1_1Socket.html">aperf::Socket</a></div><div class="ttdef"><b>Definition</b> socket.hpp:130</div></div>
+<div class="ttc" id="aclassaperf_1_1FileDescriptor_html"><div class="ttname"><a href="classaperf_1_1FileDescriptor.html">aperf::FileDescriptor</a></div><div class="ttdef"><b>Definition</b> socket.hpp:347</div></div>
+<div class="ttc" id="aclassaperf_1_1FileDescriptor_html_a150929a4797a6fe5df578ff846b11362"><div class="ttname"><a href="classaperf_1_1FileDescriptor.html#a150929a4797a6fe5df578ff846b11362">aperf::FileDescriptor::get_buf_size</a></div><div class="ttdeci">unsigned int get_buf_size()</div><div class="ttdef"><b>Definition</b> socket.cpp:481</div></div>
+<div class="ttc" id="aclassaperf_1_1FileDescriptor_html_a3e85ba84e6f1248812eb227c551e66e2"><div class="ttname"><a href="classaperf_1_1FileDescriptor.html#a3e85ba84e6f1248812eb227c551e66e2">aperf::FileDescriptor::close</a></div><div class="ttdeci">void close()</div><div class="ttdef"><b>Definition</b> socket.cpp:309</div></div>
+<div class="ttc" id="aclassaperf_1_1FileDescriptor_html_a504f8a9657f4f07c1663d29c4c8fdf23"><div class="ttname"><a href="classaperf_1_1FileDescriptor.html#a504f8a9657f4f07c1663d29c4c8fdf23">aperf::FileDescriptor::write</a></div><div class="ttdeci">void write(std::string msg, bool new_line)</div><div class="ttdef"><b>Definition</b> socket.cpp:419</div></div>
+<div class="ttc" id="aclassaperf_1_1FileDescriptor_html_a82e4816115b519a1ac2bb70b1aef5429"><div class="ttname"><a href="classaperf_1_1FileDescriptor.html#a82e4816115b519a1ac2bb70b1aef5429">aperf::FileDescriptor::FileDescriptor</a></div><div class="ttdeci">FileDescriptor(int read_fd[2], int write_fd[2], unsigned int buf_size)</div><div class="ttdef"><b>Definition</b> socket.cpp:282</div></div>
+<div class="ttc" id="aclassaperf_1_1FileDescriptor_html_a8ef1f4aea2cb47a6cbbd1e0732c4211c"><div class="ttname"><a href="classaperf_1_1FileDescriptor.html#a8ef1f4aea2cb47a6cbbd1e0732c4211c">aperf::FileDescriptor::read</a></div><div class="ttdeci">int read(char *buf, unsigned int len, long timeout_seconds)</div><div class="ttdef"><b>Definition</b> socket.cpp:321</div></div>
+<div class="ttc" id="aclassaperf_1_1PipeAcceptor_1_1Factory_html"><div class="ttname"><a href="classaperf_1_1PipeAcceptor_1_1Factory.html">aperf::PipeAcceptor::Factory</a></div><div class="ttdef"><b>Definition</b> socket.hpp:388</div></div>
+<div class="ttc" id="aclassaperf_1_1PipeAcceptor_1_1Factory_html_a1df1f0dfe020eeeb4ede3766a4f42709"><div class="ttname"><a href="classaperf_1_1PipeAcceptor_1_1Factory.html#a1df1f0dfe020eeeb4ede3766a4f42709">aperf::PipeAcceptor::Factory::make_acceptor</a></div><div class="ttdeci">std::unique_ptr&lt; Acceptor &gt; make_acceptor(int max_accepted)</div><div class="ttdef"><b>Definition</b> socket.hpp:398</div></div>
+<div class="ttc" id="aclassaperf_1_1PipeAcceptor_1_1Factory_html_ab84b6d455a85867d11f1e4d78caed707"><div class="ttname"><a href="classaperf_1_1PipeAcceptor_1_1Factory.html#ab84b6d455a85867d11f1e4d78caed707">aperf::PipeAcceptor::Factory::get_type</a></div><div class="ttdeci">std::string get_type()</div><div class="ttdef"><b>Definition</b> socket.hpp:406</div></div>
+<div class="ttc" id="aclassaperf_1_1PipeAcceptor_html"><div class="ttname"><a href="classaperf_1_1PipeAcceptor.html">aperf::PipeAcceptor</a></div><div class="ttdef"><b>Definition</b> socket.hpp:374</div></div>
+<div class="ttc" id="aclassaperf_1_1PipeAcceptor_html_a09435a1066186376d86ad8f7b98ad815"><div class="ttname"><a href="classaperf_1_1PipeAcceptor.html#a09435a1066186376d86ad8f7b98ad815">aperf::PipeAcceptor::close</a></div><div class="ttdeci">void close()</div><div class="ttdef"><b>Definition</b> socket.cpp:535</div></div>
+<div class="ttc" id="aclassaperf_1_1PipeAcceptor_html_a800ef13c5ab42bc4f711527584dec2d2"><div class="ttname"><a href="classaperf_1_1PipeAcceptor.html#a800ef13c5ab42bc4f711527584dec2d2">aperf::PipeAcceptor::get_connection_instructions</a></div><div class="ttdeci">std::string get_connection_instructions()</div><div class="ttdef"><b>Definition</b> socket.cpp:540</div></div>
+<div class="ttc" id="aclassaperf_1_1PipeAcceptor_html_a9b020d0349999d4e6921f3996070cbe6"><div class="ttname"><a href="classaperf_1_1PipeAcceptor.html#a9b020d0349999d4e6921f3996070cbe6">aperf::PipeAcceptor::get_type</a></div><div class="ttdeci">std::string get_type()</div><div class="ttdef"><b>Definition</b> socket.cpp:544</div></div>
+<div class="ttc" id="aclassaperf_1_1PipeAcceptor_html_ab9f28c445096026c584296e7eabd60e1"><div class="ttname"><a href="classaperf_1_1PipeAcceptor.html#ab9f28c445096026c584296e7eabd60e1">aperf::PipeAcceptor::accept_connection</a></div><div class="ttdeci">std::unique_ptr&lt; Connection &gt; accept_connection(unsigned int buf_size)</div><div class="ttdef"><b>Definition</b> socket.cpp:504</div></div>
+<div class="ttc" id="aclassaperf_1_1Socket_html"><div class="ttname"><a href="classaperf_1_1Socket.html">aperf::Socket</a></div><div class="ttdef"><b>Definition</b> socket.hpp:131</div></div>
 <div class="ttc" id="aclassaperf_1_1Socket_html_a2e6c4dc08617ca134dd40023d687c702"><div class="ttname"><a href="classaperf_1_1Socket.html#a2e6c4dc08617ca134dd40023d687c702">aperf::Socket::read</a></div><div class="ttdeci">virtual std::string read(long timeout_seconds=NO_TIMEOUT)=0</div></div>
 <div class="ttc" id="aclassaperf_1_1Socket_html_a30a2d363ce69eba219a4f32a30d584ec"><div class="ttname"><a href="classaperf_1_1Socket.html#a30a2d363ce69eba219a4f32a30d584ec">aperf::Socket::get_address</a></div><div class="ttdeci">virtual std::string get_address()=0</div></div>
 <div class="ttc" id="aclassaperf_1_1Socket_html_a345906512a9a1275463039ef51eea228"><div class="ttname"><a href="classaperf_1_1Socket.html#a345906512a9a1275463039ef51eea228">aperf::Socket::write</a></div><div class="ttdeci">virtual void write(fs::path file)=0</div></div>
@@ -419,16 +422,16 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aclassaperf_1_1Socket_html_a8db403dbf75c1e173d78666c7801d7ed"><div class="ttname"><a href="classaperf_1_1Socket.html#a8db403dbf75c1e173d78666c7801d7ed">aperf::Socket::get_buf_size</a></div><div class="ttdeci">virtual unsigned int get_buf_size()=0</div></div>
 <div class="ttc" id="aclassaperf_1_1Socket_html_a91ab978e17bf4a87ac6acf48c01929dd"><div class="ttname"><a href="classaperf_1_1Socket.html#a91ab978e17bf4a87ac6acf48c01929dd">aperf::Socket::write</a></div><div class="ttdeci">virtual void write(unsigned int len, char *buf)=0</div></div>
 <div class="ttc" id="aclassaperf_1_1Socket_html_ab7b39b18f21c92b57f0d77f8704eaf52"><div class="ttname"><a href="classaperf_1_1Socket.html#ab7b39b18f21c92b57f0d77f8704eaf52">aperf::Socket::get_port</a></div><div class="ttdeci">virtual unsigned short get_port()=0</div></div>
-<div class="ttc" id="aclassaperf_1_1TCPAcceptor_1_1Factory_html"><div class="ttname"><a href="classaperf_1_1TCPAcceptor_1_1Factory.html">aperf::TCPAcceptor::Factory</a></div><div class="ttdef"><b>Definition</b> socket.hpp:299</div></div>
-<div class="ttc" id="aclassaperf_1_1TCPAcceptor_1_1Factory_html_a4c3e0d8522cb9310b90cede93be7f9da"><div class="ttname"><a href="classaperf_1_1TCPAcceptor_1_1Factory.html#a4c3e0d8522cb9310b90cede93be7f9da">aperf::TCPAcceptor::Factory::make_acceptor</a></div><div class="ttdeci">std::unique_ptr&lt; Acceptor &gt; make_acceptor(int max_accepted)</div><div class="ttdef"><b>Definition</b> socket.hpp:324</div></div>
-<div class="ttc" id="aclassaperf_1_1TCPAcceptor_1_1Factory_html_a7ea7e8a124a1cd0c7b0ac0b5eb18de0d"><div class="ttname"><a href="classaperf_1_1TCPAcceptor_1_1Factory.html#a7ea7e8a124a1cd0c7b0ac0b5eb18de0d">aperf::TCPAcceptor::Factory::get_type</a></div><div class="ttdeci">std::string get_type()</div><div class="ttdef"><b>Definition</b> socket.hpp:331</div></div>
-<div class="ttc" id="aclassaperf_1_1TCPAcceptor_1_1Factory_html_ae7b294956ca21b5da54d48c14eeb66c9"><div class="ttname"><a href="classaperf_1_1TCPAcceptor_1_1Factory.html#ae7b294956ca21b5da54d48c14eeb66c9">aperf::TCPAcceptor::Factory::Factory</a></div><div class="ttdeci">Factory(std::string address, unsigned short port, bool try_subsequent_ports=false)</div><div class="ttdef"><b>Definition</b> socket.hpp:317</div></div>
-<div class="ttc" id="aclassaperf_1_1TCPAcceptor_html"><div class="ttname"><a href="classaperf_1_1TCPAcceptor.html">aperf::TCPAcceptor</a></div><div class="ttdef"><b>Definition</b> socket.hpp:283</div></div>
+<div class="ttc" id="aclassaperf_1_1TCPAcceptor_1_1Factory_html"><div class="ttname"><a href="classaperf_1_1TCPAcceptor_1_1Factory.html">aperf::TCPAcceptor::Factory</a></div><div class="ttdef"><b>Definition</b> socket.hpp:300</div></div>
+<div class="ttc" id="aclassaperf_1_1TCPAcceptor_1_1Factory_html_a4c3e0d8522cb9310b90cede93be7f9da"><div class="ttname"><a href="classaperf_1_1TCPAcceptor_1_1Factory.html#a4c3e0d8522cb9310b90cede93be7f9da">aperf::TCPAcceptor::Factory::make_acceptor</a></div><div class="ttdeci">std::unique_ptr&lt; Acceptor &gt; make_acceptor(int max_accepted)</div><div class="ttdef"><b>Definition</b> socket.hpp:325</div></div>
+<div class="ttc" id="aclassaperf_1_1TCPAcceptor_1_1Factory_html_a7ea7e8a124a1cd0c7b0ac0b5eb18de0d"><div class="ttname"><a href="classaperf_1_1TCPAcceptor_1_1Factory.html#a7ea7e8a124a1cd0c7b0ac0b5eb18de0d">aperf::TCPAcceptor::Factory::get_type</a></div><div class="ttdeci">std::string get_type()</div><div class="ttdef"><b>Definition</b> socket.hpp:332</div></div>
+<div class="ttc" id="aclassaperf_1_1TCPAcceptor_1_1Factory_html_ae7b294956ca21b5da54d48c14eeb66c9"><div class="ttname"><a href="classaperf_1_1TCPAcceptor_1_1Factory.html#ae7b294956ca21b5da54d48c14eeb66c9">aperf::TCPAcceptor::Factory::Factory</a></div><div class="ttdeci">Factory(std::string address, unsigned short port, bool try_subsequent_ports=false)</div><div class="ttdef"><b>Definition</b> socket.hpp:318</div></div>
+<div class="ttc" id="aclassaperf_1_1TCPAcceptor_html"><div class="ttname"><a href="classaperf_1_1TCPAcceptor.html">aperf::TCPAcceptor</a></div><div class="ttdef"><b>Definition</b> socket.hpp:284</div></div>
 <div class="ttc" id="aclassaperf_1_1TCPAcceptor_html_a827694c3fa110052033f01eb69b110e5"><div class="ttname"><a href="classaperf_1_1TCPAcceptor.html#a827694c3fa110052033f01eb69b110e5">aperf::TCPAcceptor::accept_connection</a></div><div class="ttdeci">std::unique_ptr&lt; Connection &gt; accept_connection(unsigned int buf_size)</div><div class="ttdef"><b>Definition</b> socket.cpp:64</div></div>
 <div class="ttc" id="aclassaperf_1_1TCPAcceptor_html_aa7c6bddb6bffedaa733c67549c98e9a3"><div class="ttname"><a href="classaperf_1_1TCPAcceptor.html#aa7c6bddb6bffedaa733c67549c98e9a3">aperf::TCPAcceptor::get_type</a></div><div class="ttdeci">std::string get_type()</div><div class="ttdef"><b>Definition</b> socket.cpp:80</div></div>
 <div class="ttc" id="aclassaperf_1_1TCPAcceptor_html_ae3888f30b2477bb67299a039e3492be4"><div class="ttname"><a href="classaperf_1_1TCPAcceptor.html#ae3888f30b2477bb67299a039e3492be4">aperf::TCPAcceptor::close</a></div><div class="ttdeci">void close()</div><div class="ttdef"><b>Definition</b> socket.cpp:84</div></div>
 <div class="ttc" id="aclassaperf_1_1TCPAcceptor_html_ae96d678df57cd458cee01ae05219389c"><div class="ttname"><a href="classaperf_1_1TCPAcceptor.html#ae96d678df57cd458cee01ae05219389c">aperf::TCPAcceptor::get_connection_instructions</a></div><div class="ttdeci">std::string get_connection_instructions()</div><div class="ttdef"><b>Definition</b> socket.cpp:76</div></div>
-<div class="ttc" id="aclassaperf_1_1TCPSocket_html"><div class="ttname"><a href="classaperf_1_1TCPSocket.html">aperf::TCPSocket</a></div><div class="ttdef"><b>Definition</b> socket.hpp:256</div></div>
+<div class="ttc" id="aclassaperf_1_1TCPSocket_html"><div class="ttname"><a href="classaperf_1_1TCPSocket.html">aperf::TCPSocket</a></div><div class="ttdef"><b>Definition</b> socket.hpp:257</div></div>
 <div class="ttc" id="aclassaperf_1_1TCPSocket_html_a444dcc4e269dc2ff36328024e517ec42"><div class="ttname"><a href="classaperf_1_1TCPSocket.html#a444dcc4e269dc2ff36328024e517ec42">aperf::TCPSocket::get_address</a></div><div class="ttdeci">std::string get_address()</div><div class="ttdef"><b>Definition</b> socket.cpp:106</div></div>
 <div class="ttc" id="aclassaperf_1_1TCPSocket_html_a4523cd747d0c2b633a9646a65017aaee"><div class="ttname"><a href="classaperf_1_1TCPSocket.html#a4523cd747d0c2b633a9646a65017aaee">aperf::TCPSocket::read</a></div><div class="ttdeci">int read(char *buf, unsigned int len, long timeout_seconds)</div><div class="ttdef"><b>Definition</b> socket.cpp:122</div></div>
 <div class="ttc" id="aclassaperf_1_1TCPSocket_html_a64b91a0b8645d53147ebcc5b52fd9441"><div class="ttname"><a href="classaperf_1_1TCPSocket.html#a64b91a0b8645d53147ebcc5b52fd9441">aperf::TCPSocket::close</a></div><div class="ttdeci">void close()</div><div class="ttdef"><b>Definition</b> socket.cpp:118</div></div>
@@ -436,7 +439,7 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aclassaperf_1_1TCPSocket_html_aa2f948f6c8f02963505bf4aef4cea408"><div class="ttname"><a href="classaperf_1_1TCPSocket.html#aa2f948f6c8f02963505bf4aef4cea408">aperf::TCPSocket::get_port</a></div><div class="ttdeci">unsigned short get_port()</div><div class="ttdef"><b>Definition</b> socket.cpp:110</div></div>
 <div class="ttc" id="aclassaperf_1_1TCPSocket_html_aa3398dd6b7c990e1d0742f9bb7213715"><div class="ttname"><a href="classaperf_1_1TCPSocket.html#aa3398dd6b7c990e1d0742f9bb7213715">aperf::TCPSocket::get_buf_size</a></div><div class="ttdeci">unsigned int get_buf_size()</div><div class="ttdef"><b>Definition</b> socket.cpp:114</div></div>
 <div class="ttc" id="aclassaperf_1_1TCPSocket_html_ac7add750178ae8a888d4a01977f30826"><div class="ttname"><a href="classaperf_1_1TCPSocket.html#ac7add750178ae8a888d4a01977f30826">aperf::TCPSocket::write</a></div><div class="ttdeci">void write(std::string msg, bool new_line)</div><div class="ttdef"><b>Definition</b> socket.cpp:219</div></div>
-<div class="ttc" id="aclassaperf_1_1TimeoutException_html"><div class="ttname"><a href="classaperf_1_1TimeoutException.html">aperf::TimeoutException</a></div><div class="ttdef"><b>Definition</b> socket.hpp:48</div></div>
+<div class="ttc" id="aclassaperf_1_1TimeoutException_html"><div class="ttname"><a href="classaperf_1_1TimeoutException.html">aperf::TimeoutException</a></div><div class="ttdef"><b>Definition</b> socket.hpp:49</div></div>
 <div class="ttc" id="anamespaceaperf_html"><div class="ttname"><a href="namespaceaperf.html">aperf</a></div><div class="ttdef"><b>Definition</b> archive.cpp:7</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
